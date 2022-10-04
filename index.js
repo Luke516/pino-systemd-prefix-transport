@@ -2,6 +2,7 @@
 
 const build = require('pino-abstract-transport')
 const { Transform, pipeline } = require('stream')
+const stringify = require('fast-safe-stringify')
 
 const severity = {
   emergency: 0,
@@ -47,12 +48,9 @@ function getStream (fileDescriptor) {
 }
 
 function processMessage(obj) {
-  //TODO: use fast stringify
   const severity = levelToSeverity(obj.level);
-  return `<${severity}>${JSON.stringify(obj)}\n`;
+  return `<${severity}>${stringify(obj)}\n`;
 } 
-
-module.exports = pinoTransport
 
 function pinoTransport (opts) {
   let destination
@@ -78,7 +76,7 @@ function pinoTransport (opts) {
       pipeflow.push(destination)
     }
     pipeline(pipeflow, () => {
-      // process._rawDebug('pino-transport: finished piping')
+      // finished piping
     })
 
     return stream
@@ -86,3 +84,5 @@ function pinoTransport (opts) {
     enablePipelining: opts.enablePipelining
   })
 }
+
+module.exports = pinoTransport

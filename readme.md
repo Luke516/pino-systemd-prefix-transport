@@ -1,8 +1,8 @@
 # pino-systemd-prefix-transport
 
-*pino-systemd-prefix-transport* is a [transport][transport] for the [pino][pino] logger. *pino-systemd-prefix-transport* receives *pino* logs and adds a 3-character prefix '<' N '>' to the log, where N is a digit from 0 to 7 indicating severity of the log line.
+*pino-systemd-prefix-transport* is a [transport][transport] for the [pino][pino] logger. *pino-systemd-prefix-transport* receives *pino* logs and adds a 3-character prefix '<' N '>' to the log, where N is a digit from 0 to 7 indicating severity of the log line.By default, Systemd will interpret the prefix as the log level, omit it, and log the rest of the string at the specified level.
 
-Systemd interprets the prefix as the log level, omits it, and logs the rest of the string at the specified level.
+This package might be useful if you run your node application as a Systemd service (for example, using the AWS Elastic Beanstalk cloud service), and you want to control the log level being sent to Syslog.
 
 Reference:
 [systemd.exec(5)][systemd], 
